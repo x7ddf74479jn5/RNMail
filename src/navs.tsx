@@ -13,7 +13,7 @@ export type HomeDrawerParamList = {
 export type RootStackParamList = {
   Home: NavigatorScreenParams<HomeDrawerParamList>
   Detail: {
-    nodeId: string
+    noteId: string
   }
 }
 
