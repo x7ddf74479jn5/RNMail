@@ -3,6 +3,7 @@ import HeaderBar from "@/components/header-bar"
 import FeatherIcon from "@/components/icon"
 import MoveNoteSheet from "@/components/move-note-sheet"
 import NoteList from "@/components/note-list"
+import ThemePicker from "@/components/theme-picker"
 import useStickyHeader from "@/hooks/use-sticky-header"
 import {HomeDrawerParamList, RootStackParamList} from "@/navs"
 import {DrawerScreenProps} from "@react-navigation/drawer"
@@ -16,6 +17,7 @@ type MainScreenProps = CompositeScreenProps<
 >
 
 export default function MainScreen({navigation}: MainScreenProps) {
+  const refThemePicker = useRef<ThemePicker>(null)
   const refMoveNoteSheet = useRef<MoveNoteSheet>(null)
   const {handleNoteListLayout, handleScroll, headerBarHeight, headerBarStyle} =
     useStickyHeader()
@@ -25,6 +27,12 @@ export default function MainScreen({navigation}: MainScreenProps) {
   const handleSidebarToggle = useCallback(() => {
     navigation.toggleDrawer()
   }, [navigation])
+  const handleMenuToggle = useCallback(() => {
+    const {current: menu} = refThemePicker
+    if (menu) {
+      menu.show()
+    }
+  }, [])
   const handleNoteListItemPress = useCallback((noteId: string) => {
     navigation.navigate("Detail", {
       noteId,
@@ -63,7 +71,11 @@ export default function MainScreen({navigation}: MainScreenProps) {
         <Box flex={1} alignItems="center">
           <Text fontWeight="bold">All Notes</Text>
         </Box>
-        <TouchableOpacity m="xs" p="xs" rippleBorderless>
+        <TouchableOpacity
+          m="xs"
+          p="xs"
+          rippleBorderless
+          onPress={handleMenuToggle}>
           <FeatherIcon size={22} name="more-vertical" />
         </TouchableOpacity>
       </HeaderBar>
@@ -71,6 +83,7 @@ export default function MainScreen({navigation}: MainScreenProps) {
         ref={refMoveNoteSheet}
         onClose={handleMoveNoteSheetClose}
       />
+      <ThemePicker ref={refThemePicker} />
     </Container>
   )
 }
