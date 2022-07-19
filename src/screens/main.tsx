@@ -25,7 +25,11 @@ export default function MainScreen({navigation}: MainScreenProps) {
   const handleSidebarToggle = useCallback(() => {
     navigation.toggleDrawer()
   }, [navigation])
-  const handleNoteListItemPress = useCallback((noteId: string) => {}, [])
+  const handleNoteListItemPress = useCallback((noteId: string) => {
+    navigation.navigate("Detail", {
+      noteId,
+    })
+  }, [])
   const handleNoteListItemSwipeLeft = useCallback(
     (noteId: string, conceal: () => void) => {
       const {current: menu} = refMoveNoteSheet
