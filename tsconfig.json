@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths":{
-      "@/":["src/*"]
+      "@/*":["src/*"]
     },
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   }
