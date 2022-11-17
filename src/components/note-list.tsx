@@ -2,7 +2,7 @@ import NoteListItem from "@/components/note-list-item"
 import {Note} from "@/models"
 import {Theme} from "@/themes"
 import {createBox} from "@shopify/restyle"
-import {useCallback} from "react"
+import React, {useCallback} from "react"
 import {
   FlatListProps,
   NativeScrollEvent,
@@ -21,6 +21,7 @@ interface NoteListProps {
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
   onItemPress: (noteId: string) => void
   onItemSwipeLeft: (noteId: string, cancel: () => void) => void
+  ListHeaderComponent?: React.ComponentType<any> | null | undefined
 }
 
 const NoteList: React.FC<NoteListProps> = ({
@@ -28,6 +29,7 @@ const NoteList: React.FC<NoteListProps> = ({
   onScroll,
   onItemPress,
   onItemSwipeLeft,
+  ListHeaderComponent,
 }) => {
   const renderItem = useCallback(
     ({item}) => {
@@ -51,7 +53,14 @@ const NoteList: React.FC<NoteListProps> = ({
       width="100%"
       onScroll={onScroll}
       scrollEventThrottle={16}
-      ListEmptyComponent={<Box width="100%" height={contentInsetTop} />}
+      ListEmptyComponent={
+        <Box>
+          <>
+            <Box width="100%" height={contentInsetTop} />
+            {ListHeaderComponent && <ListHeaderComponent />}
+          </>
+        </Box>
+      }
     />
   )
 }

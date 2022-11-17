@@ -47,6 +47,8 @@ const theme = createTheme({
     $sidebarForeground: p.navy900,
     $sidebarSeparator: p.paper00 + "20",
     $headerBarBackground: p.paper20,
+    $fieldInputBackground: p.paper00,
+    $fieldInputPlaceholderTextColor: p.paper300,
   },
   borderRadii: {
     xs: 4,

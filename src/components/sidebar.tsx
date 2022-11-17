@@ -1,14 +1,28 @@
-import {Box} from "@/atoms"
-import BookList from "@/components/book-list"
-import PandasharkLogo from "@/components/pandashark-logo"
+import {Box, Text} from "@/atoms"
+import activeThemeId from "@/states/theme"
+import {Theme, ThemeMeta, ThemeNames, themes} from "@/themes"
 import {DrawerContentComponentProps} from "@react-navigation/drawer"
+import {createBox} from "@shopify/restyle"
+import {useAtom} from "jotai"
 import React, {useCallback} from "react"
-import {SafeAreaView} from "react-native"
+import {FlatList, FlatListProps, SafeAreaView} from "react-native"
+import PandasharkLogo from "./pandashark-logo"
+import ThemeListItem from "./theme-list-item"
+
+const StyledFlatList = createBox<Theme, FlatListProps<ThemeMeta>>(FlatList)
 
 const Sidebar: React.FC<DrawerContentComponentProps> = ({navigation}) => {
-  const handleBookListItemPress = useCallback(() => {
-    navigation.closeDrawer()
-  }, [navigation])
+  const [, setActiveTheme] = useAtom(activeThemeId)
+  const handleThemeItemPress = useCallback((selectedThemeId: ThemeNames) => {
+    setActiveTheme(selectedThemeId)
+  }, [])
+
+  const renderThemeItem = useCallback(
+    ({item}: {item: ThemeMeta}) => {
+      return <ThemeListItem theme={item} onPress={handleThemeItemPress} />
+    },
+    [handleThemeItemPress],
+  )
 
   return (
     <Box flex={1} bg="$sidebarBackground">
@@ -21,9 +35,20 @@ const Sidebar: React.FC<DrawerContentComponentProps> = ({navigation}) => {
           borderBottomColor="$sidebarSeparator"
           borderBottomWidth={1}>
           <PandasharkLogo width={128} height={36} color="black" />
-        </Box>{" "}
+        </Box>
       </SafeAreaView>
-      <BookList onPressItem={handleBookListItemPress} />
+      <StyledFlatList
+        ListHeaderComponent={() => (
+          <Box p="lg" alignItems="flex-start">
+            <Text color="$sidebarForeground" fontWeight="bold">
+              UI Themes
+            </Text>
+          </Box>
+        )}
+        data={themes}
+        keyExtractor={(t: ThemeMeta) => t.id}
+        renderItem={renderThemeItem}
+      />
     </Box>
   )
 }

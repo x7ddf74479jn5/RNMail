@@ -29,6 +29,8 @@ export const theme: Theme = createTheme({
     $sidebarBackground: p.slate30,
     $sidebarForeground: p.slate900,
     $sidebarSeparator: p.slate900 + "20",
+    $filedInputBackground: p.slate00,
+    $filedInputPlaceholderTextColor: p.slate100,
   },
   statusBar: {
     barStyle: "light-content" as StatusBarStyle,
