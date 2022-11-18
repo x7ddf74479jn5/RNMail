@@ -13,9 +13,7 @@ export type HomeDrawerParamList = {
 
 export type RootStackParamList = {
   Home: NavigatorScreenParams<HomeDrawerParamList>
-  Detail: {
-    noteId: string
-  }
+  Detail: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -52,7 +50,13 @@ export default function Navigations() {
         component={Home}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="Detail" component={DetailScreen} options={{}} />
+      <Stack.Screen
+        name="Detail"
+        component={DetailScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   )
 }
