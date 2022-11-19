@@ -1,7 +1,8 @@
 import {Box, Text} from "@/atoms"
 import activeThemeId from "@/states/theme"
 import {Theme, ThemeMeta, ThemeNames, themes} from "@/themes"
-import {DrawerContentComponentProps} from "@react-navigation/drawer"
+import {DrawerNavigationHelpers} from "@react-navigation/drawer/lib/typescript/src/types"
+import {useNavigation} from "@react-navigation/native"
 import {createBox} from "@shopify/restyle"
 import {useAtom} from "jotai"
 import React, {useCallback} from "react"
@@ -11,11 +12,18 @@ import ThemeListItem from "./theme-list-item"
 
 const StyledFlatList = createBox<Theme, FlatListProps<ThemeMeta>>(FlatList)
 
-const Sidebar: React.FC<DrawerContentComponentProps> = ({navigation}) => {
+type Props = {}
+
+const Sidebar: React.FC<Props> = () => {
+  const navigation = useNavigation<DrawerNavigationHelpers>()
   const [, setActiveTheme] = useAtom(activeThemeId)
-  const handleThemeItemPress = useCallback((selectedThemeId: ThemeNames) => {
-    setActiveTheme(selectedThemeId)
-  }, [])
+
+  const handleThemeItemPress = useCallback(
+    (selectedThemeId: ThemeNames) => {
+      setActiveTheme(selectedThemeId)
+    },
+    [navigation],
+  )
 
   const renderThemeItem = useCallback(
     ({item}: {item: ThemeMeta}) => {
