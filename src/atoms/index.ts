@@ -6,7 +6,8 @@ import Bar from "./bar"
 import Pressable from "./pressable"
 import Touchable, {TouchableOpacity} from "./touchable"
 import {TextInput} from "./text-input"
-import {SafeAreaView, SafeAreaView} from "./safe-area-view"
+import {SafeAreaView} from "./safe-area-view"
+import ScrollView from "./scroll-view"
 
 export {
   Box,
@@ -19,4 +20,5 @@ export {
   AnimatedBox,
   TextInput,
   SafeAreaView,
+  ScrollView,
 }

@@ -4,8 +4,8 @@ import {createDrawerNavigator} from "@react-navigation/drawer"
 import MainScreen from "@/screens/main"
 import Sidebar from "@/components/sidebar"
 import {NavigatorScreenParams} from "@react-navigation/native"
-import DetailScreen from "@/screens/detail"
 import {useDrawerEnabled} from "./hooks/use-drawer-enabled"
+import DetailScreenForPhone from "./screens/detail-phone"
 
 export type HomeDrawerParamList = {
   Main: {}
@@ -52,7 +52,7 @@ export default function Navigations() {
       />
       <Stack.Screen
         name="Detail"
-        component={DetailScreen}
+        component={DetailScreenForPhone}
         options={{
           headerShown: false,
         }}
