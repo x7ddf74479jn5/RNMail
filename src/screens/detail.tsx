@@ -1,8 +1,9 @@
-import {Box, Container, Text} from "@/atoms"
+import {Box, Container, Text, ScrollView} from "@/atoms"
 import {Navbar} from "@/components/navbar"
 import {editingNoteIdAtom} from "@/states/editor"
 import {useAtom} from "jotai"
 import React from "react"
+import NOTES from "@/fixtures/notes"
 
 type Props = {
   renderNavBarLeft: () => React.ReactNode
@@ -11,6 +12,7 @@ type Props = {
 const DetailScreen: React.FC<Props> = props => {
   const {renderNavBarLeft} = props
   const [editingNoteId] = useAtom(editingNoteIdAtom)
+  const note = NOTES.find(n => n.id === editingNoteId)
 
   return (
     <Container>
@@ -23,11 +25,14 @@ const DetailScreen: React.FC<Props> = props => {
         </Box>
         <Box width={36} />
       </Navbar>
-      <Box flex={1} alignItems="center" justifyContent="center">
-        <Text m="lg" fontSize={24}>
-          Editing Note ID: {editingNoteId}
+      <ScrollView flex={1} p="sm">
+        <Text fontWeight="bold" m="sm" fontSize={24}>
+          {note?.title}
         </Text>
-      </Box>
+        <Text m="sm" fontSize={20}>
+          {note?.body}
+        </Text>
+      </ScrollView>
     </Container>
   )
 }
