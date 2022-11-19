@@ -19,7 +19,7 @@ import {interpolate, SharedValue} from "react-native-reanimated"
 
 type SwipeLeftCallback = () => any
 
-interface BackViewProps {
+export interface BackViewProps {
   progress: Readonly<SharedValue<number>>
 }
 
